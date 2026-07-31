@@ -24,11 +24,16 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id)
-      .populate("reviews")
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+      },
+    })
       .populate("owner");
     if (!listing) {
       req.flash("error", "Listing you requested for does not exists!");
-      res.redirect("/listings");
+      return res.redirect("/listings");
     }
     console.log(listing);
     res.render("listings/show", { listing });
@@ -72,8 +77,8 @@ router.put(
   isOwner,
   validateListing,
   wrapAsync(async (req, res) => {
-    let {id} = req.params;
-    await Listing.findByIdAndUpdate(id, {...req.body.listing});
+    let { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     req.flash("success", "Listing Updated!");
     res.redirect(`/listings/${id}`);
   }),
