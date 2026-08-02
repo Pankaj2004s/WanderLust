@@ -1,5 +1,5 @@
-if(process.env.NODE_ENV != "production") {
-  require('dotenv').config();
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
 }
 // console.log(process.env.CLOUD_NAME);
 // console.log(process.env.CLOUD_API_KEY);
@@ -45,7 +45,7 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
 const sessionOptions = {
-  secret: "mysupersecretcode",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -54,10 +54,6 @@ const sessionOptions = {
     httpOnly: true,
   },
 };
-
-app.get("/", (req, res) => {
-  res.send("Hi , I am root");
-});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -70,15 +66,15 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-  res.locals.success = req.flash("success"); 
+  res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-  res.locals.currUser = req.user; 
+  res.locals.currUser = req.user;
   next();
 });
 
 app.use("/listings", listingRouter);
-app.use("/listings/:id/reviews/", reviewRouter);  
-app.use("/", userRouter);  
+app.use("/listings/:id/reviews/", reviewRouter);
+app.use("/", userRouter);
 
 app.all("/{*splat}", (req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
