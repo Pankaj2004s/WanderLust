@@ -157,3 +157,19 @@ body {
   display: flex;
   align-items: center;
 }
+
+/* SEARCH */
+.search-btn {
+  background-color: #fe424d;
+  color: #fff;
+}
+
+.search-btn:hover {
+  background-color: #fe424d;
+  color: #fff;
+}
+
+.search-btn i {
+  display: inline;
+  margin-right: 0.5rem;
+}
