@@ -13,3 +13,10 @@
     }, false)
   })
 })()
+
+let taxSwitch = document.getElementById("switchCheckDefault");
+if (taxSwitch) {
+  taxSwitch.addEventListener("click", () => {
+    console.log("clicked");
+  });
+}
