@@ -125,6 +125,7 @@ body {
 #filters {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .filter {
@@ -141,4 +142,18 @@ body {
 
 .filter p {
   font-size: 0.9rem;
+}
+
+.tax-info{
+  display: none;
+}
+
+.tax-toggle{
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3.25rem;
+  padding: 1rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
 }
